@@ -1,0 +1,144 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <title>Login page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<link href="css/carousel.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+      <a class="navbar-brand" href="#"><img src="images/LogoSample_ByTailorBrands.jpg" /></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+		
+      </div>
+    </nav>
+
+    <main role="main" class="container">
+
+   <form name="form-login" method="post" action="server.htm">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email</label>
+    <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Παρακαλούμε εισάγετε email">
+    <small id="emailHelp" class="form-text text-muted">Η διεύθυνσή σας προστατεύεται</small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Κωδικός πρόσβασης</label>
+    <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Παρακαλούμε εισάγετε κωδικό πρόσβασης">
+  </div>
+  <div class="etc-login-form">
+	<p>Ξεχάσατε τον κωδικό σας; <a href="#" data-target="#pwdModal" data-toggle="modal">Πατήστε εδώ</a></p>
+   </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Σε ποιά υπηρεσία εργάζεστε;</label>
+    <select name="service" class="form-control" id="exampleFormControlSelect1">
+      <option value="1">ΔΙΕΥΘΥΝΣΗ ΤΡΟΧΑΙΑΣ</option>
+	  <option value="2">ΔΕΥΑ</option>
+      <option value="3">ΔΕΔΔΗΕ</option>
+      <option value="4">ΥΠΗΡΕΣΙΑ ΚΑΘΑΡΙΟΤΗΤΑΣ</option>
+    </select>
+  </div>
+  <div class="form-group form-check">
+    <input name="rememberme" type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Μείνετε συνδεδεμένοι</label>
+  </div>
+  
+  <button type="button" class="btn btn-primary cmd-login-form">Είσοδος</button>
+</form>
+
+<!--modal-->
+<div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          
+          <h1 class="text-center">Ξεχάσατε τον κωδικό σας;</h1>
+		  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+          <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="text-center">
+                          
+                          <p>Εισάγετε το email σας και επιλέξτε "Αποστολή". Θα σας αποσταλεί αυτόματα στο email.</p>
+                            <div class="panel-body">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <input name="reset" class="form-control input-lg" placeholder="E-mail" name="email" type="email">
+                                    </div>
+                                    <button class="btn btn-lg btn-primary btn-block cmd-reset" type="submit">Αποστολή</button>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+          <div class="col-md-12">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Άκυρο</button>
+		  </div>	
+      </div>
+  </div>
+  </div>
+</div>
+
+    </main><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+    <script>window.jQuery || document.write('<script src="https://code.jquery.com/jquery-3.3.1.min.js"><\/script>')</script>
+    <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+	<script>
+		$('.cmd-login-form').on('click', function(e){
+			var data = $('[name="form-login"]').serialize();
+			console.log(data);
+			$.ajax({
+				url: 'server.htm',
+				data:data,
+				method:'post'
+			})
+			.done(function( response ) {
+				location.href='secondpage.htm'
+			})
+			.fail(function(xhr,response){
+				alert(response);
+			});
+			return false;
+		});
+		
+		$('.cmd-reset').on('click', function(){
+			$.ajax({
+				url: 'server.htm',
+				data: 'reset=' + $('[name="reset"]').val()
+			});
+		});
+		
+	</script>
+  </body>
+</html>
+
+
+
